@@ -1223,7 +1223,7 @@ class Client(object):
 
 
 
-    def fetchImageUrl1(self, image_id):
+    def fetchJSON(self, image_id):
         """Fetches the url to the original image from an image attachment ID
 
         :param image_id: The image you want to fethc
