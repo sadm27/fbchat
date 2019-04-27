@@ -1214,6 +1214,8 @@ class Client(object):
             self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(image_id)})
         )
 
+        print(j)
+
         url = get_jsmods_require(j, 3)
         if url is None:
             raise FBchatException("Could not fetch image url from: {}".format(j))
