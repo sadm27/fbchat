@@ -1200,6 +1200,7 @@ class Client(object):
 
         return payload["thread_fbids"] + payload["other_user_fbids"]
 
+
     def fetchImageUrl(self, image_id):
         """Fetches the url to the original image from an image attachment ID
 
@@ -1214,14 +1215,29 @@ class Client(object):
             self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(image_id)})
         )
 
-        print("The formatted json file: {}".format(j))
-
         url = get_jsmods_require(j, 3)
         if url is None:
             raise FBchatException("Could not fetch image url from: {}".format(j))
         return url
 
+    def fetchVideoUrl(self, video_id):
+        """Fetches the url to the original video from an video attachment ID
 
+        :param video_id: The video you want to fethc
+        :type video_id: str
+        :return: An url where you can download the original video
+        :rtype: str
+        :raises: FBchatException if request failed
+        """
+        video_id = str(video_id)
+        j = check_request(
+            self._get(ReqUrl.ATTACHMENT_VIDEO, query={"video_id": str(video_id)})
+        )
+
+        url = get_jsmods_require(j, 3)
+        if url is None:
+            raise FBchatException("Could not fetch video url from: {}".format(j))
+        return url
 
     def fetchJSON(self, image_id):
         """Fetches the url to the original image from an image attachment ID
@@ -1240,10 +1256,6 @@ class Client(object):
         url = "The formatted json file: {}".format(j)
 
         return url
-
-
-
-
 
 
     def fetchMessageInfo(self, mid, thread_id=None):
