@@ -1203,7 +1203,6 @@ class Client(object):
 
     def fetchImageUrl(self, image_id):
         """Fetches the url to the original image from an image attachment ID
-
         :param image_id: The image you want to fethc
         :type image_id: str
         :return: An url where you can download the original image
@@ -1218,11 +1217,13 @@ class Client(object):
         url = get_jsmods_require(j, 3)
         if url is None:
             raise FBchatException("Could not fetch image url from: {}".format(j))
-        return url
+        if ".jpg" in url or ".jpeg" in url or ".png" in url or ".tiff" in url or ".gif" in url:
+            return url
+        else:
+            return "This attachment isn't an image or doesn't have a .jpg, .jpeg, .png, .tiff, or .gif extention"
 
     def fetchVideoUrl(self, video_id):
         """Fetches the url to the original video from an video attachment ID
-
         :param video_id: The video you want to fethc
         :type video_id: str
         :return: An url where you can download the original video
@@ -1231,31 +1232,33 @@ class Client(object):
         """
         video_id = str(video_id)
         j = check_request(
-            self._get(ReqUrl.ATTACHMENT_VIDEO, query={"video_id": str(video_id)})
+            self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(video_id)})
         )
 
         url = get_jsmods_require(j, 3)
         if url is None:
             raise FBchatException("Could not fetch video url from: {}".format(j))
-        return url
+        
+        if ".webm" in url or ".mkv" in url or ".flv" in url or ".avi" in url or ".mov" in url or ".wmv" in url or ".mp4" in url or ".m4p" in url or ".m4v" in url:
+            return url
+        else:
+            return "This attachment isn't an image or doesn't have a .webm, .mkv, .flv, .avi, .mov, .wmv, .mp4, .m4p or .m4v extention"
 
-    def fetchJSON(self, image_id):
-        """Fetches the url to the original image from an image attachment ID
-
-        :param image_id: The image you want to fethc
-        :type image_id: str
+    def fetchJSON(self, attach_id):
+        """Fetches the json file that contains the original image from an image attachment ID
+        :param attach_id: The image you want to fethc
+        :type attach_id: str
         :return: An url where you can download the original image
         :rtype: str
         :raises: FBchatException if request failed
         """
-        image_id = str(image_id)
+        attach_id = str(attach_id)
         j = check_request(
-            self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(image_id)})
+            self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(attach_id)})
         )
 
-        url = "The formatted json file: {}".format(j)
-
-        return url
+        json = "The formatted json file: {}".format(j)
+        return json
 
 
     def fetchMessageInfo(self, mid, thread_id=None):

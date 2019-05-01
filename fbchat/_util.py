@@ -128,7 +128,6 @@ class ReqUrl(object):
     TYPING = "https://www.facebook.com/ajax/messaging/typ.php"
     GRAPHQL = "https://www.facebook.com/api/graphqlbatch/"
     ATTACHMENT_PHOTO = "https://www.facebook.com/mercury/attachments/photo/"
-    ATTACHMENT_VIDEO = "https://www.facebook.com/mercury/attachments/video/"
     PLAN_CREATE = "https://www.facebook.com/ajax/eventreminder/create"
     PLAN_INFO = "https://www.facebook.com/ajax/eventreminder"
     PLAN_CHANGE = "https://www.facebook.com/ajax/eventreminder/submit"
