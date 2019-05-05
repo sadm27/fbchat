@@ -1115,6 +1115,22 @@ class Client(object):
 
         return messages
 
+    def fetchUnreadGroupMessage(self, thread_id=None):
+
+        unreadMessages = self.fetchThreadMessages(thread_id)
+
+        for unreadMessage in unreadMessages:
+
+            theMessageUser = self.fetchUserInfo(unreadMessage.author)
+            theMessageUser[unreadMessage.author].name
+
+            print("From: {0}".format(theMessageUser[unreadMessage.author].name))
+            print("Date: {0}".format(time.ctime(int(unreadMessage.timestamp))))
+            print("Message:")
+            print("{0}".format(unreadMessage.text))
+            print(" ")
+            print(" ")
+
     def fetchThreadList(
         self, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None
     ):
