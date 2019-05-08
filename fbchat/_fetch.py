@@ -11,7 +11,7 @@ class Fetcher(object):
     """
 
     def FET__forcedFetch(self, thread_id, mid, Client):
-        j = self.graphql_request(
+        j = Client.graphql_request(
             GraphQL(
                 doc_id="1768656253222505",
                 params={
@@ -43,7 +43,7 @@ class Fetcher(object):
                 break
 
             # fetchThreadList returns at max 20 threads before last_thread_timestamp (included)
-            candidates = self.fetchThreadList(
+            candidates = Client.fetchThreadList(
                 before=last_thread_timestamp, thread_location=thread_location
             )
 
@@ -98,7 +98,7 @@ class Fetcher(object):
                         users_to_fetch.append(user_id)
             else:
                 pass
-        for user_id, user in self.fetchUserInfo(*users_to_fetch).items():
+        for user_id, user in Client.fetchUserInfo(*users_to_fetch).items():
             users.append(user)
         return users
 
@@ -111,9 +111,9 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        data = {"viewer": self.uid}
-        j = self._post(
-            self.req_url.ALL_USERS, query=data, fix_request=True, as_json=True
+        data = {"viewer": Client.uid}
+        j = Client._post(
+            Client.req_url.ALL_USERS, query=data, fix_request=True, as_json=True
         )
         if j.get("payload") is None:
             raise FBchatException("Missing payload while fetching users: {}".format(j))
@@ -151,7 +151,7 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        j = self.graphql_request(
+        j = Client.graphql_request(
             GraphQL(query=GraphQL.SEARCH_USER, params={"search": name, "limit": limit})
         )
 
@@ -167,7 +167,7 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        j = self.graphql_request(
+        j = Client.graphql_request(
             GraphQL(query=GraphQL.SEARCH_PAGE, params={"search": name, "limit": limit})
         )
 
@@ -184,7 +184,7 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        j = self.graphql_request(
+        j = Client.graphql_request(
             GraphQL(query=GraphQL.SEARCH_GROUP, params={"search": name, "limit": limit})
         )
 
@@ -201,7 +201,7 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        j = self.graphql_request(
+        j = Client.graphql_request(
             GraphQL(
                 query=GraphQL.SEARCH_THREAD, params={"search": name, "limit": limit}
             )
@@ -242,7 +242,7 @@ class Fetcher(object):
         :rtype: generator
         :raises: FBchatException if request failed
         """
-        thread_id, thread_type = self._getThread(thread_id, None)
+        thread_id, thread_type = Client._getThread(thread_id, None)
 
         data = {
             "query": query,
@@ -251,8 +251,8 @@ class Fetcher(object):
             "identifier": "thread_fbid",
             "thread_fbid": thread_id,
         }
-        j = self._post(
-            self.req_url.SEARCH_MESSAGES, data, fix_request=True, as_json=True
+        j = Client._post(
+            Client.req_url.SEARCH_MESSAGES, data, fix_request=True, as_json=True
         )
 
         result = j["payload"]["search_snippets"][query]
@@ -277,11 +277,11 @@ class Fetcher(object):
         :rtype: generator
         :raises: FBchatException if request failed
         """
-        message_ids = self.searchForMessageIDs(
+        message_ids = Client.searchForMessageIDs(
             query, offset=offset, limit=limit, thread_id=thread_id
         )
         for mid in message_ids:
-            yield self.fetchMessageInfo(mid, thread_id)
+            yield Client.fetchMessageInfo(mid, thread_id)
 
     def FET_search(self, query, fetch_messages=False, thread_limit=5, message_limit=5, Client):
         """
@@ -298,22 +298,22 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
         data = {"query": query, "snippetLimit": thread_limit}
-        j = self._post(
-            self.req_url.SEARCH_MESSAGES, data, fix_request=True, as_json=True
+        j = Client._post(
+            Client.req_url.SEARCH_MESSAGES, data, fix_request=True, as_json=True
         )
 
         result = j["payload"]["search_snippets"][query]
 
         if fetch_messages:
             return {
-                thread_id: self.searchForMessages(
+                thread_id: Client.searchForMessages(
                     query, limit=message_limit, thread_id=thread_id
                 )
                 for thread_id in result
             }
         else:
             return {
-                thread_id: self.searchForMessageIDs(
+                thread_id: Client.searchForMessageIDs(
                     query, limit=message_limit, thread_id=thread_id
                 )
                 for thread_id in result
@@ -321,7 +321,7 @@ class Fetcher(object):
 
     def FET__fetchInfo(self, *ids, Client):
         data = {"ids[{}]".format(i): _id for i, _id in enumerate(ids)}
-        j = self._post(self.req_url.INFO, data, fix_request=True, as_json=True)
+        j = Client._post(Client.req_url.INFO, data, fix_request=True, as_json=True)
 
         if j.get("payload") is None or j["payload"].get("profiles") is None:
             raise FBchatException("No users/pages returned: {}".format(j))
@@ -369,7 +369,7 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        threads = self.fetchThreadInfo(*user_ids)
+        threads = Client.fetchThreadInfo(*user_ids)
         users = {}
         for k in threads:
             if threads[k].type == ThreadType.USER:
@@ -392,7 +392,7 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        threads = self.fetchThreadInfo(*page_ids)
+        threads = Client.fetchThreadInfo(*page_ids)
         pages = {}
         for k in threads:
             if threads[k].type == ThreadType.PAGE:
@@ -412,7 +412,7 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        threads = self.fetchThreadInfo(*group_ids)
+        threads = Client.fetchThreadInfo(*group_ids)
         groups = {}
         for k in threads:
             if threads[k].type == ThreadType.GROUP:
@@ -450,7 +450,7 @@ class Fetcher(object):
                 )
             )
 
-        j = self.graphql_requests(*queries)
+        j = Client.graphql_requests(*queries)
 
         for i, entry in enumerate(j):
             if entry.get("message_thread") is None:
@@ -467,7 +467,7 @@ class Fetcher(object):
         ]
         pages_and_users = {}
         if len(pages_and_user_ids) != 0:
-            pages_and_users = self._fetchInfo(*pages_and_user_ids)
+            pages_and_users = Client._fetchInfo(*pages_and_user_ids)
 
         rtn = {}
         for i, entry in enumerate(j):
@@ -505,9 +505,9 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
 
-        thread_id, thread_type = self._getThread(thread_id, None)
+        thread_id, thread_type = Client._getThread(thread_id, None)
 
-        j = self.graphql_request(
+        j = Client.graphql_request(
             GraphQL(
                 doc_id="1386147188135407",
                 params={
@@ -567,7 +567,7 @@ class Fetcher(object):
         else:
             raise FBchatUserError('"thread_location" must be a value of ThreadLocation')
 
-        j = self.graphql_request(
+        j = Client.graphql_request(
             GraphQL(
                 doc_id="1349387578499440",
                 params={
@@ -599,8 +599,8 @@ class Fetcher(object):
             # 'last_action_timestamp': 0
         }
 
-        j = self._post(
-            self.req_url.UNREAD_THREADS, form, fix_request=True, as_json=True
+        j = Client._post(
+            Client.req_url.UNREAD_THREADS, form, fix_request=True, as_json=True
         )
 
         payload = j["payload"]["unread_thread_fbids"][0]
@@ -615,8 +615,8 @@ class Fetcher(object):
         :rtype: list
         :raises: FBchatException if request failed
         """
-        j = self._post(
-            self.req_url.UNSEEN_THREADS, None, fix_request=True, as_json=True
+        j = Client._post(
+            Client.req_url.UNSEEN_THREADS, None, fix_request=True, as_json=True
         )
 
         payload = j["payload"]["unseen_thread_fbids"][0]
@@ -634,7 +634,7 @@ class Fetcher(object):
         """
         image_id = str(image_id)
         j = check_request(
-            self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(image_id)})
+            Client._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(image_id)})
         )
 
         url = get_jsmods_require(j, 3)
@@ -655,7 +655,7 @@ class Fetcher(object):
         """
         video_id = str(video_id)
         j = check_request(
-            self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(video_id)})
+            Client._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(video_id)})
         )
 
         url = get_jsmods_require(j, 3)
@@ -677,7 +677,7 @@ class Fetcher(object):
         """
         attach_id = str(attach_id)
         j = check_request(
-            self._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(attach_id)})
+            Client._get(ReqUrl.ATTACHMENT_PHOTO, query={"photo_id": str(attach_id)})
         )
 
         json = "The formatted json file: {}".format(j)
@@ -694,8 +694,8 @@ class Fetcher(object):
         :rtype: models.Message
         :raises: FBchatException if request failed
         """
-        thread_id, thread_type = self._getThread(thread_id, None)
-        message_info = self._forcedFetch(thread_id, mid).get("message")
+        thread_id, thread_type = Client._getThread(thread_id, None)
+        message_info = Client._forcedFetch(thread_id, mid).get("message")
         message = graphql_to_message(message_info)
         return message
 
@@ -709,8 +709,8 @@ class Fetcher(object):
         """
         data = {"question_id": poll_id}
 
-        j = self._post(
-            self.req_url.GET_POLL_OPTIONS, data, fix_request=True, as_json=True
+        j = Client._post(
+            Client.req_url.GET_POLL_OPTIONS, data, fix_request=True, as_json=True
         )
 
         return [graphql_to_poll_option(m) for m in j["payload"]]
@@ -725,12 +725,12 @@ class Fetcher(object):
         :raises: FBchatException if request failed
         """
         data = {"event_reminder_id": plan_id}
-        j = self._post(self.req_url.PLAN_INFO, data, fix_request=True, as_json=True)
+        j = Client._post(Client.req_url.PLAN_INFO, data, fix_request=True, as_json=True)
         plan = graphql_to_plan(j["payload"])
         return plan
 
     def FET__getPrivateData(self, Client):
-        j = self.graphql_request(GraphQL(doc_id="1868889766468115"))
+        j = Client.graphql_request(GraphQL(doc_id="1868889766468115"))
         return j["viewer"]
 
     def FET_getPhoneNumbers(self, Client):
@@ -740,7 +740,7 @@ class Fetcher(object):
         :return: List of phone numbers
         :rtype: list
         """
-        data = self._getPrivateData()
+        data = Client._getPrivateData()
         return [
             j["phone_number"]["universal_number"] for j in data["user"]["all_phones"]
         ]
@@ -752,7 +752,7 @@ class Fetcher(object):
         :return: List of emails
         :rtype: list
         """
-        data = self._getPrivateData()
+        data = Client._getPrivateData()
         return [j["display_email"] for j in data["all_emails"]]
 
     def FET_getUserActiveStatus(self, user_id, Client):
@@ -767,7 +767,7 @@ class Fetcher(object):
         :return: Given user active status
         :rtype: models.ActiveStatus
         """
-        return self._buddylist.get(str(user_id))
+        return Client._buddylist.get(str(user_id))
 
     """
     END FETCH METHODS
