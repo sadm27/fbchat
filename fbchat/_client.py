@@ -1119,31 +1119,32 @@ class Client(object):
         unreadMessages = self.fetchThreadMessages(thread_id)
 
         for unreadMessage in unreadMessages:
-            theMessageUser = self.fetchUserInfo(unreadMessage.author)
-            theMessageUser[unreadMessage.author].name
 
-            theName = theMessageUser[unreadMessage.author].name
+            if unreadMessage.is_read == False:
 
-            theTime = time.ctime(int(unreadMessage.timestamp) / 1000.0)
+                theMessageUser = self.fetchUserInfo(unreadMessage.author)
+                theMessageUser[unreadMessage.author].name
 
-            theTextMessage = unreadMessage.text
+                theName = theMessageUser[unreadMessage.author].name
 
-            print(" ")
-            print(" ")
-            print("-----------------------------------------------------")
-            print("From: ",end="")
-            print(theName)
-            print("Time: ", end="")
-            print(theTime)
-            print("Message:")
-            print("")
-            print(theTextMessage)
-            print("-----------------------------------------------------")
-            print(" ")
-            print(" ")
-            print(" ")
+                theTime = time.ctime(int(unreadMessage.timestamp) / 1000.0)
 
+                theTextMessage = unreadMessage.text
 
+                print(" ")
+                print(" ")
+                print("-----------------------------------------------------")
+                print("From: ",end="")
+                print(theName)
+                print("Time: ", end="")
+                print(theTime)
+                print("Message:")
+                print("          ", end="")
+                print(theTextMessage)
+                print("-----------------------------------------------------")
+                print(" ")
+                print(" ")
+                print(" ")
 
 
     def fetchThreadList(
