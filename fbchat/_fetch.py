@@ -10,7 +10,7 @@ class Fetcher(object):
     FETCH METHODS
     """
 
-    def _forcedFetch(self, thread_id, mid, Client):
+    def FET__forcedFetch(self, thread_id, mid, Client):
         j = self.graphql_request(
             GraphQL(
                 doc_id="1768656253222505",
@@ -21,7 +21,7 @@ class Fetcher(object):
         )
         return j
 
-    def fetchThreads(self, thread_location, before=None, after=None, limit=None, Client):
+    def FET_fetchThreads(self, thread_location, before=None, after=None, limit=None, Client):
         """
         Get all threads in thread_location.
         Threads will be sorted from newest to oldest.
@@ -74,7 +74,7 @@ class Fetcher(object):
 
         return threads
 
-    def fetchAllUsersFromThreads(self, threads, Client):
+    def FET_fetchAllUsersFromThreads(self, threads, Client):
         """
         Get all users involved in threads.
 
@@ -102,7 +102,7 @@ class Fetcher(object):
             users.append(user)
         return users
 
-    def fetchAllUsers(self, Client):
+    def FET_fetchAllUsers(self, Client):
         """
         Gets all users the client is currently chatting with
 
@@ -140,7 +140,7 @@ class Fetcher(object):
 
         return users
 
-    def searchForUsers(self, name, limit=10, Client):
+    def FET_searchForUsers(self, name, limit=10, Client):
         """
         Find and get user by his/her name
 
@@ -157,7 +157,7 @@ class Fetcher(object):
 
         return [graphql_to_user(node) for node in j[name]["users"]["nodes"]]
 
-    def searchForPages(self, name, limit=10, Client):
+    def FET_searchForPages(self, name, limit=10, Client):
         """
         Find and get page by its name
 
@@ -173,7 +173,7 @@ class Fetcher(object):
 
         return [graphql_to_page(node) for node in j[name]["pages"]["nodes"]]
 
-    def searchForGroups(self, name, limit=10, Client):
+    def FET_searchForGroups(self, name, limit=10, Client):
         """
         Find and get group thread by its name
 
@@ -190,7 +190,7 @@ class Fetcher(object):
 
         return [graphql_to_group(node) for node in j["viewer"]["groups"]["nodes"]]
 
-    def searchForThreads(self, name, limit=10, Client):
+    def FET_searchForThreads(self, name, limit=10, Client):
         """
         Find and get a thread by its name
 
@@ -228,7 +228,7 @@ class Fetcher(object):
 
         return rtn
 
-    def searchForMessageIDs(self, query, offset=0, limit=5, thread_id=None, Client):
+    def FET_searchForMessageIDs(self, query, offset=0, limit=5, thread_id=None, Client):
         """
         Find and get message IDs by query
 
@@ -260,7 +260,7 @@ class Fetcher(object):
         for snippet in snippets:
             yield snippet["message_id"]
 
-    def searchForMessages(self, query, offset=0, limit=5, thread_id=None, Client):
+    def FET_searchForMessages(self, query, offset=0, limit=5, thread_id=None, Client):
         """
         Find and get :class:`models.Message` objects by query
 
@@ -283,7 +283,7 @@ class Fetcher(object):
         for mid in message_ids:
             yield self.fetchMessageInfo(mid, thread_id)
 
-    def search(self, query, fetch_messages=False, thread_limit=5, message_limit=5, Client):
+    def FET_search(self, query, fetch_messages=False, thread_limit=5, message_limit=5, Client):
         """
         Searches for messages in all threads
 
@@ -319,7 +319,7 @@ class Fetcher(object):
                 for thread_id in result
             }
 
-    def _fetchInfo(self, *ids, Client):
+    def FET__fetchInfo(self, *ids, Client):
         data = {"ids[{}]".format(i): _id for i, _id in enumerate(ids)}
         j = self._post(self.req_url.INFO, data, fix_request=True, as_json=True)
 
@@ -356,7 +356,7 @@ class Fetcher(object):
         log.debug(entries)
         return entries
 
-    def fetchUserInfo(self, *user_ids, Client):
+    def FET_fetchUserInfo(self, *user_ids, Client):
         """
         Get users' info from IDs, unordered
 
@@ -379,7 +379,7 @@ class Fetcher(object):
 
         return users
 
-    def fetchPageInfo(self, *page_ids, Client):
+    def FET_fetchPageInfo(self, *page_ids, Client):
         """
         Get pages' info from IDs, unordered
 
@@ -402,7 +402,7 @@ class Fetcher(object):
 
         return pages
 
-    def fetchGroupInfo(self, *group_ids, Client):
+    def FET_fetchGroupInfo(self, *group_ids, Client):
         """
         Get groups' info from IDs, unordered
 
@@ -422,7 +422,7 @@ class Fetcher(object):
 
         return groups
 
-    def fetchThreadInfo(self, *thread_ids, Client):
+    def FET_fetchThreadInfo(self, *thread_ids, Client):
         """
         Get threads' info from IDs, unordered
 
@@ -491,7 +491,7 @@ class Fetcher(object):
 
         return rtn
 
-    def fetchThreadMessages(self, thread_id=None, limit=20, before=None, Client):
+    def FET_fetchThreadMessages(self, thread_id=None, limit=20, before=None, Client):
         """
         Get the last messages in a thread
 
@@ -540,7 +540,7 @@ class Fetcher(object):
 
         return messages
 
-    def fetchThreadList(self, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None, Client):
+    def FET_fetchThreadList(self, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None, Client):
         """Get thread list of your facebook account
 
         :param offset: Deprecated. Do not use!
@@ -584,7 +584,7 @@ class Fetcher(object):
             graphql_to_thread(node) for node in j["viewer"]["message_threads"]["nodes"]
         ]
 
-    def fetchUnread(self, Client):
+    def FET_fetchUnread(self, Client):
         """
         Get the unread thread list
 
@@ -607,7 +607,7 @@ class Fetcher(object):
 
         return payload["thread_fbids"] + payload["other_user_fbids"]
 
-    def fetchUnseen(self, Client):
+    def FET_fetchUnseen(self, Client):
         """
         Get the unseen (new) thread list
 
@@ -624,7 +624,7 @@ class Fetcher(object):
         return payload["thread_fbids"] + payload["other_user_fbids"]
 
 
-    def fetchImageUrl(self, image_id, Client):
+    def FET_fetchImageUrl(self, image_id, Client):
         """Fetches the url to the original image from an image attachment ID
         :param image_id: The image you want to fethc
         :type image_id: str
@@ -645,7 +645,7 @@ class Fetcher(object):
         else:
             return "This attachment isn't an image or doesn't have a .jpg, .jpeg, .png, .tiff, or .gif extention"
 
-    def fetchVideoUrl(self, video_id, Client):
+    def FET_fetchVideoUrl(self, video_id, Client):
         """Fetches the url to the original video from an video attachment ID
         :param video_id: The video you want to fethc
         :type video_id: str
@@ -667,7 +667,7 @@ class Fetcher(object):
         else:
             return "This attachment isn't an image or doesn't have a .webm, .mkv, .flv, .avi, .mov, .wmv, .mp4, .m4p or .m4v extention"
 
-    def fetchJSON(self, attach_id, Client):
+    def FET_fetchJSON(self, attach_id, Client):
         """Fetches the json file that contains the original image from an image attachment ID
         :param attach_id: The image you want to fethc
         :type attach_id: str
@@ -684,7 +684,7 @@ class Fetcher(object):
         return json
 
 
-    def fetchMessageInfo(self, mid, thread_id=None, Client):
+    def FET_fetchMessageInfo(self, mid, thread_id=None, Client):
         """
         Fetches :class:`models.Message` object from the message id
 
@@ -699,7 +699,7 @@ class Fetcher(object):
         message = graphql_to_message(message_info)
         return message
 
-    def fetchPollOptions(self, poll_id, Client):
+    def FET_fetchPollOptions(self, poll_id, Client):
         """
         Fetches list of :class:`models.PollOption` objects from the poll id
 
@@ -715,7 +715,7 @@ class Fetcher(object):
 
         return [graphql_to_poll_option(m) for m in j["payload"]]
 
-    def fetchPlanInfo(self, plan_id, Client):
+    def FET_fetchPlanInfo(self, plan_id, Client):
         """
         Fetches a :class:`models.Plan` object from the plan id
 
@@ -729,11 +729,11 @@ class Fetcher(object):
         plan = graphql_to_plan(j["payload"])
         return plan
 
-    def _getPrivateData(self, Client):
+    def FET__getPrivateData(self, Client):
         j = self.graphql_request(GraphQL(doc_id="1868889766468115"))
         return j["viewer"]
 
-    def getPhoneNumbers(self, Client):
+    def FET_getPhoneNumbers(self, Client):
         """
         Fetches a list of user phone numbers.
 
@@ -745,7 +745,7 @@ class Fetcher(object):
             j["phone_number"]["universal_number"] for j in data["user"]["all_phones"]
         ]
 
-    def getEmails(self, Client):
+    def FET_getEmails(self, Client):
         """
         Fetches a list of user emails.
 
@@ -755,7 +755,7 @@ class Fetcher(object):
         data = self._getPrivateData()
         return [j["display_email"] for j in data["all_emails"]]
 
-    def getUserActiveStatus(self, user_id, Client):
+    def FET_getUserActiveStatus(self, user_id, Client):
         """
         Gets friend active status as an :class:`models.ActiveStatus` object.
         Returns `None` if status isn't known.

@@ -591,96 +591,96 @@ class Client(object):
 
 
     def _forcedFetch(self, thread_id, mid):
-        return DaFetch._forcedFetch(thread_id, mid, self)
+        return DaFetch.FET__forcedFetch(thread_id, mid, self)
 
     def fetchThreads(self, thread_location, before=None, after=None, limit=None):
-        return DaFetch.fetchThreads(thread_location, before, after, limit, self)
+        return DaFetch.FET_fetchThreads(thread_location, before, after, limit, self)
 
     def fetchAllUsersFromThreads(self, threads):
-        return DaFetch.fetchAllUsersFromThreads(threads, self)
+        return DaFetch.FET_fetchAllUsersFromThreads(threads, self)
 
     def fetchAllUsers(self):
-        return DaFetch.fetchAllUsers(self)
+        return DaFetch.FET_fetchAllUsers(self)
 
     def searchForUsers(self, name, limit=10):
-        return DaFetch.searchForUsers(name, limit, self)
+        return DaFetch.FET_searchForUsers(name, limit, self)
 
     def searchForPages(self, name, limit=10):
-        return DaFetch.searchForPages(name, limit, self)
+        return DaFetch.FET_searchForPages(name, limit, self)
 
     def searchForGroups(self, name, limit=10):
-        return DaFetch.searchForGroups(name, limit, self)
+        return DaFetch.FET_searchForGroups(name, limit, self)
 
     def searchForThreads(self, name, limit=10):
-        return DaFetch.searchForThreads(name, limit,self)
+        return DaFetch.FET_searchForThreads(name, limit,self)
 
     def searchForMessageIDs(self, query, offset=0, limit=5, thread_id=None):
-        return DaFetch.searchForMessageIDs(query, offset, limit, thread_id, self)
+        return DaFetch.FET_searchForMessageIDs(query, offset, limit, thread_id, self)
 
     def searchForMessages(self, query, offset=0, limit=5, thread_id=None):
-        return DaFetch.searchForMessages(query, offset, limit, thread_id, self)
+        return DaFetch.FET_searchForMessages(query, offset, limit, thread_id, self)
 
     def search(self, query, fetch_messages=False, thread_limit=5, message_limit=5):
-        return DaFetch.search(query, fetch_messages, thread_limit, message_limit, self)
+        return DaFetch.FET_search(query, fetch_messages, thread_limit, message_limit, self)
 
     def _fetchInfo(self, *ids):
-        return DaFetch._fetchInfo(*ids, self)
+        return DaFetch.FET__fetchInfo(*ids, self)
 
     def fetchUserInfo(self, *user_ids):
-        return DaFetch.fetchUserInfo(*user_ids, self)
+        return DaFetch.FET_fetchUserInfo(*user_ids, self)
 
     def fetchPageInfo(self, *page_ids):
-        return DaFetch.fetchPageInfo(*page_ids, self)
+        return DaFetch.FET_fetchPageInfo(*page_ids, self)
 
     def fetchGroupInfo(self, *group_ids):
-        return DaFetch.fetchGroupInfo(*group_ids, self)
+        return DaFetch.FET_fetchGroupInfo(*group_ids, self)
 
     def fetchThreadInfo(self, *thread_ids):
-        return DaFetch.fetchThreadInfo(*thread_ids, self)
+        return DaFetch.FET_fetchThreadInfo(*thread_ids, self)
 
     def fetchThreadMessages(self, thread_id=None, limit=20, before=None):
-        return DaFetch.fetchThreadMessages(thread_id, limit, before, self)
+        return DaFetch.FET_fetchThreadMessages(thread_id, limit, before, self)
 
     def fetchThreadList(self, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None):
-        return DaFetch.fetchThreadList(offset, limit, thread_location, before, self)
+        return DaFetch.FET_fetchThreadList(offset, limit, thread_location, before, self)
 
     def fetchUnread(self):
-        return DaFetch.fetchUnread(self)
+        return DaFetch.FET_fetchUnread(self)
 
     def fetchUnseen(self):
-        return DaFetch.fetchUnseen(self)
+        return DaFetch.FET_fetchUnseen(self)
 
 
     def fetchImageUrl(self, image_id):
-        return DaFetch.fetchImageUrl(image_id, self)
+        return DaFetch.FET_fetchImageUrl(image_id, self)
 
     def fetchVideoUrl(self, video_id):
-        return DaFetch.fetchVideoUrl(video_id, self)
+        return DaFetch.FET_fetchVideoUrl(video_id, self)
 
     def fetchJSON(self, attach_id):
-        return DaFetch.fetchJSON(attach_id, self)
+        return DaFetch.FET_fetchJSON(attach_id, self)
 
 
     def fetchMessageInfo(self, mid, thread_id=None):
-        return DaFetch.fetchMessageInfo(mid, thread_id, self)
+        return DaFetch.FET_fetchMessageInfo(mid, thread_id, self)
 
     def fetchPollOptions(self, poll_id):
-        return DaFetch.fetchPollOptions(poll_id, self)
+        return DaFetch.FET_fetchPollOptions(poll_id, self)
 
     def fetchPlanInfo(self, plan_id):
-        return DaFetch.fetchPlanInfo(plan_id, self)
+        return DaFetch.FET_fetchPlanInfo(plan_id, self)
 
     def _getPrivateData(self):
-        return DaFetch._getPrivateData(self)
+        return DaFetch.FET__getPrivateData(self)
 
     def getPhoneNumbers(self):
-        return DaFetch.getPhoneNumbers(self)
+        return DaFetch.FET_getPhoneNumbers(self)
 
     def getEmails(self):
-        return DaFetch.getEmails(self)
+        return DaFetch.FET_getEmails(self)
 
     def getUserActiveStatus(self, user_id):
-        return DaFetch.getUserActiveStatus(user_id, self)
+        return DaFetch.FET_getUserActiveStatus(user_id, self)
 
     """
     END FETCH METHODS Callers
