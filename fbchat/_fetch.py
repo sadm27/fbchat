@@ -603,6 +603,8 @@ class Fetcher(object):
         elif (threadType == 'USER'):
             print("________________________  END OF USER CONVERSATION WITH: " + threadName + "__________________________________________")
 
+        return True
+
 
     def FET_fetchThreadList(self, Client, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None):
         """Get thread list of your facebook account
