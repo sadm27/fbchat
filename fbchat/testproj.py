@@ -13,6 +13,6 @@ print("User's name: {}".format(user.name))
 print("User's profile picture url: {}".format(user.photo))
 print("User's main url: {}".format(user.url))
 
-user_messages.print_all_threads(client)
+#user_messages.print_all_threads(client)
 #thread1 = client.fetchThreadList()[0]
 #user_messages.print_single_thread(client, thread1.uid)

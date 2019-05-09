@@ -34,3 +34,31 @@ def print_all_threads(client:Client):
             print_thread_messages(client, messages, interlocutor)
         else:
             print_thread_messages(client, messages, None)
+
+
+def getSentMessages(client:Client):
+    threads = client.fetchThreadList()
+    sent_messages = []
+    for thread in threads:
+        messages = client.fetchThreadMessages(thread.uid, limit=30)
+        name = client.fetchUserInfo(client.uid)[client.uid].name
+        user = client.searchForUsers(name)[0]
+        messages.reverse()
+        for message in messages:
+            if user.uid == message.author:
+                sent_messages.append(message.text)
+    return sent_messages;
+
+
+def getReceivedMessages(client:Client):
+    threads = client.fetchThreadList()
+    received_messages = []
+    for thread in threads:
+        messages = client.fetchThreadMessages(thread.uid, limit=30)
+        name = client.fetchUserInfo(client.uid)[client.uid].name
+        user = client.searchForUsers(name)[0]
+        messages.reverse()
+        for message in messages:
+            if user.uid != message.author:
+                received_messages.append(message.text)
+    return received_messages;
