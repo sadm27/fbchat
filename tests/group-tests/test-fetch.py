@@ -4,21 +4,21 @@ from __future__ import unicode_literals
 
 import pytest
 
-from os import path
-
 import fbchat
 from fbchat import Client
 from fbchat.models import *
 
 client = Client('sadm161@live.com', 'Bravo127$')
 
-#users = client.searchForUsers('Testo Accounto')
+    """
+    Test file for testing fetchImageUrl and fetchVideoUrl
 
-
-
+    :also test the refactoring of these fetch functions from _client.py to _fetcher.py
+    :uses my FB account and message thread for testing
+    :grabs the last four messages from Testo Accounto and checks their extentions
+    """
 
 def test_fetch_image_url_png():
-    #client = Client('sadm161@live.com', 'Bravo127$')
     users = client.searchForUsers('Testo Accounto')
     user = users[0]
 
@@ -30,7 +30,6 @@ def test_fetch_image_url_png():
 
 
 def test_fetch_image_url_jpg():
-    #client = Client('sadm161@live.com', 'Bravo127$')
     users = client.searchForUsers('Testo Accounto')
     user = users[0]
 
@@ -43,7 +42,6 @@ def test_fetch_image_url_jpg():
 
 
 def test_fetch_video_url_mp4():
-    #client = Client('sadm161@live.com', 'Bravo127$')
     users = client.searchForUsers('Testo Accounto')
     user = users[0]
 

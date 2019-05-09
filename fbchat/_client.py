@@ -588,6 +588,15 @@ class Client(object):
     FETCH METHODS Callers
     """
 
+    """
+    Refactored all of the fetch functions my moveing them to _fetch.py
+
+    :functions in client.py calls the original refactored functions in _fetch.py
+    :an instance of the current client is sent to the fetcher along with the original arguments
+    :this is down so whenever self was originally called it now uses client
+    :Names for original functions are kept the same so changes are not seen on the surface
+    """
+
 
     def _forcedFetch(self, thread_id, mid):
         return self.DaFetch.FET__forcedFetch(self, thread_id, mid)
