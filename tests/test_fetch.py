@@ -94,8 +94,26 @@ def test_fetch_info(client1, group):
     assert info.type == ThreadType.GROUP
 
 
-def test_fetch_image_url(client):
+def test_fetch_image_url_png(client):
     client.sendLocalFiles([path.join(path.dirname(__file__), "resources", "image.png")])
     message, = client.fetchThreadMessages(limit=1)
 
     assert client.fetchImageUrl(message.attachments[0].uid)
+
+def test_fetch_image_url_gif(client):
+    client.sendLocalFiles([path.join(path.dirname(__file__), "resources", "image.gif")])
+    message, = client.fetchThreadMessages(limit=1)
+
+    assert client.fetchImageUrl(message.attachments[0].uid)
+
+def test_fetch_video_url_mp4(client):
+    client.sendLocalFiles([path.join(path.dirname(__file__), "resources", "video.mp4")])
+    message, = client.fetchThreadMessages(limit=1)
+
+    assert client.fetchVideoUrl(message.attachments[0].uid)
+
+def test_fetch_video_url_webm(client):
+    client.sendLocalFiles([path.join(path.dirname(__file__), "resources", "video.webm")])
+    message, = client.fetchThreadMessages(limit=1)
+
+    assert client.fetchVideoUrl(message.attachments[0].uid)
