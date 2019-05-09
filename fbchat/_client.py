@@ -1114,7 +1114,7 @@ class Client(object):
 
         return messages
 
-    def fetchUnreadGroupMessage(self, thread_id=None):
+    def fetchUnreadFromThreadMessages(self, thread_id=None):
 
         unreadMessages = self.fetchThreadMessages(thread_id)
 
