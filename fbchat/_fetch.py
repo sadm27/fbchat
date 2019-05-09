@@ -545,16 +545,24 @@ class Fetcher(object):
 
     def FET_fetchUnreadFromThreadMessages(self, Client, thread_id=None):
 
+        """Gets all the unread messages from the Client and prints their messages on screen in order to view it
+                :param Client: Deprecated. Do not use!
+                :param thread_id: the Id of the Coversation Thread with unread messages
+                :return: Boolean type
+        """
 
+        #Retrieves the all the unread message from a thread
         unreadMessages = Client.fetchThreadMessages(thread_id)
 
-        #A checker for the type before printing the heading
+        #A checker for the type of conversation it is before printing the heading
         threadType = Client.fetchThreadInfo(thread_id)[thread_id].type.name
         threadName = Client.fetchThreadInfo(thread_id)[thread_id].name
 
+        #if the group name is empty, replaces the NoneType with a blank string instead
         if threadName is None:
             threadName = " "
 
+        #A Checker to check the number of unread messages that are Printed.
         emptyUnreadMessages = 0
 
         if(threadType == 'GROUP'):
@@ -563,6 +571,7 @@ class Fetcher(object):
         elif(threadType == 'USER'):
             print("________________________  USER CONVERSATION WITH: " + threadName +"__________________________________________")
 
+        #Runs through the messages inside the conversation thread and prints the unread messages one by one
         for unreadMessage in unreadMessages:
 
             if unreadMessage.is_read == False:
@@ -603,6 +612,8 @@ class Fetcher(object):
         elif (threadType == 'USER'):
             print("________________________  END OF USER CONVERSATION WITH: " + threadName + "__________________________________________")
 
+        #Returns the boolean after executing the method to show that It went through everything
+        #Good for automated testing, since we cannot know for sure what the messages will say.
         return True
 
 

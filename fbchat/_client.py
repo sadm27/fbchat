@@ -641,6 +641,7 @@ class Client(object):
         return self.DaFetch.FET_fetchThreadMessages(self, thread_id, limit, before)
 
     def fetchUnreadFromThreadMessages(self, thread_id=None):
+        #gets all the unread messages from the Client and prints their messages on screen in order to view it
         return self.DaFetch.FET_fetchUnreadFromThreadMessages(self, thread_id)
 
     def fetchThreadList(self, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None):
