@@ -641,64 +641,7 @@ class Client(object):
         return self.DaFetch.FET_fetchThreadMessages(self, thread_id, limit, before)
 
     def fetchUnreadFromThreadMessages(self, thread_id=None):
-
-        unreadMessages = self.fetchThreadMessages(thread_id)
-
-        #A checker for the type before printing the heading
-        threadType = self.fetchThreadInfo(thread_id)[thread_id].type.name
-        threadName = self.fetchThreadInfo(thread_id)[thread_id].name
-
-        if threadName is None:
-            threadName = " "
-
-        emptyUnreadMessages = 0
-
-        if(threadType == 'GROUP'):
-            print("________________________  GROUP CONVERSATION: " + threadName +"__________________________________________")
-
-        elif(threadType == 'USER'):
-            print("________________________  USER CONVERSATION WITH: " + threadName +"__________________________________________")
-
-        for unreadMessage in unreadMessages:
-
-            if unreadMessage.is_read == False:
-
-                emptyUnreadMessages = emptyUnreadMessages + 1
-
-                theMessageUser = self.fetchUserInfo(unreadMessage.author)
-                theMessageUser[unreadMessage.author].name
-
-                theName = theMessageUser[unreadMessage.author].name
-
-                theTime = time.ctime(int(unreadMessage.timestamp) / 1000.0)
-
-                theTextMessage = unreadMessage.text
-
-                print(" ")
-                print("-----------------------------------------------------")
-                print("From: ",end="")
-                print(theName)
-                print("Time: ", end="")
-                print(theTime)
-                print("Message:")
-                print("          ", end="")
-                print(theTextMessage)
-                print("-----------------------------------------------------")
-                print(" ")
-
-        if emptyUnreadMessages == 0:
-            print(" ")
-            print("-----------------------------------------------------")
-            print("       NO UNREAD MESSAGES           ")
-            print("-----------------------------------------------------")
-            print(" ")
-
-        if (threadType == 'GROUP'):
-            print("________________________  END OF GROUP CONVERSATION: " + threadName + "__________________________________________")
-
-        elif (threadType == 'USER'):
-            print("________________________  END OF USER CONVERSATION WITH: " + threadName + "__________________________________________")
-
+        return self.DaFetch.FET_fetchUnreadFromThreadMessages(self, thread_id)
 
     def fetchThreadList(self, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None):
         return self.DaFetch.FET_fetchThreadList(self, offset, limit, thread_location, before)

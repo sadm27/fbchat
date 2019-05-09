@@ -1,5 +1,6 @@
 from .models import *
 from .graphql import *
+import time
 
 class Fetcher(object):
 
@@ -541,6 +542,67 @@ class Fetcher(object):
                     message.read_by.append(receipt["actor"]["id"])
 
         return messages
+
+    def FET_fetchUnreadFromThreadMessages(self, Client, thread_id=None):
+
+
+        unreadMessages = Client.fetchThreadMessages(thread_id)
+
+        #A checker for the type before printing the heading
+        threadType = Client.fetchThreadInfo(thread_id)[thread_id].type.name
+        threadName = Client.fetchThreadInfo(thread_id)[thread_id].name
+
+        if threadName is None:
+            threadName = " "
+
+        emptyUnreadMessages = 0
+
+        if(threadType == 'GROUP'):
+            print("________________________  GROUP CONVERSATION: " + threadName +"__________________________________________")
+
+        elif(threadType == 'USER'):
+            print("________________________  USER CONVERSATION WITH: " + threadName +"__________________________________________")
+
+        for unreadMessage in unreadMessages:
+
+            if unreadMessage.is_read == False:
+
+                emptyUnreadMessages = emptyUnreadMessages + 1
+
+                theMessageUser = Client.fetchUserInfo(unreadMessage.author)
+                theMessageUser[unreadMessage.author].name
+
+                theName = theMessageUser[unreadMessage.author].name
+
+                theTime = time.ctime(int(unreadMessage.timestamp) / 1000.0)
+
+                theTextMessage = unreadMessage.text
+
+                print(" ")
+                print("-----------------------------------------------------")
+                print("From: ",end="")
+                print(theName)
+                print("Time: ", end="")
+                print(theTime)
+                print("Message:")
+                print("          ", end="")
+                print(theTextMessage)
+                print("-----------------------------------------------------")
+                print(" ")
+
+        if emptyUnreadMessages == 0:
+            print(" ")
+            print("-----------------------------------------------------")
+            print("       NO UNREAD MESSAGES           ")
+            print("-----------------------------------------------------")
+            print(" ")
+
+        if (threadType == 'GROUP'):
+            print("________________________  END OF GROUP CONVERSATION: " + threadName + "__________________________________________")
+
+        elif (threadType == 'USER'):
+            print("________________________  END OF USER CONVERSATION WITH: " + threadName + "__________________________________________")
+
 
     def FET_fetchThreadList(self, Client, offset=None, limit=20, thread_location=ThreadLocation.INBOX, before=None):
         """Get thread list of your facebook account
