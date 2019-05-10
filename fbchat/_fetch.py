@@ -7,7 +7,13 @@ class Fetcher(object):
     def __init__(self, initial):
         self.placehold = initial
 
+    """
+    Fetcher class contains all of the functions used to fetch data related to the client
 
+    :dependencies are imported to assure original functionality 
+    :functions are the original functions from _client.py with FET_ at the begining
+    :this is done to avoid any conflict with the linker functions
+    """
 
     """
     FETCH METHODS
