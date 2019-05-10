@@ -10,13 +10,13 @@ from fbchat.models import *
 
 client = Client('sadm161@live.com', 'Bravo127$')
 
-    """
-    Test file for testing fetchImageUrl and fetchVideoUrl
+"""
+Test file for testing fetchImageUrl and fetchVideoUrl
 
-    :also test the refactoring of these fetch functions from _client.py to _fetcher.py
-    :uses my FB account and message thread for testing
-    :grabs the last four messages from Testo Accounto and checks their extentions
-    """
+:also test the refactoring of these fetch functions from _client.py to _fetcher.py
+:uses my FB account and message thread for testing
+:grabs the last four messages from Testo Accounto and checks their extentions
+"""
 
 def test_fetch_image_url_png():
     users = client.searchForUsers('Testo Accounto')
