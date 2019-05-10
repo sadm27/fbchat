@@ -3,7 +3,8 @@ from fbchat import separate_messages
 
 testClient = Client('alexpacheco@charter.net', 'Q5pKJ9buWQ6v')
 
-def test_separateMessages():
+
+def test_separate_messages():
     sent_messages = separate_messages.get_sent_messages(testClient)
     received_messages = separate_messages.get_received_messages(testClient)
     for message_s in sent_messages:
@@ -11,3 +12,4 @@ def test_separateMessages():
             assert message_s.author != message_r.author
 
 
+testClient.logout()

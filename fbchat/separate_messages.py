@@ -2,34 +2,34 @@ from fbchat import Client
 from fbchat.models import *
 
 
-def get_sent_messages(client:Client):
-    return __get_messages(client, True)
+def get_sent_messages(client: Client):
+    return _get_messages(client, True)
 
 
-def get_received_messages(client:Client):
-    return __get_messages(client, False)
+def get_received_messages(client: Client):
+    return _get_messages(client, False)
 
 
-def print_single_thread(client:Client, thread_id):
+def print_single_thread(client: Client, thread_id):
     messages = client.fetchThreadMessages(thread_id, limit=30)
     thread_info = client.fetchThreadInfo(thread_id)
     interlocutor = thread_info[thread_id]
-    __print_thread_messages(client, messages, interlocutor)
+    _print_thread_messages(client, messages, interlocutor)
 
 
-def print_all_threads(client:Client):
+def print_all_threads(client: Client):
     threads = client.fetchThreadList()
     for thread in threads:
         messages = client.fetchThreadMessages(thread.uid, limit=30)
         if thread.type == ThreadType.USER:
             thread_info = client.fetchThreadInfo(thread.uid)
             interlocutor = thread_info[thread.uid]
-            __print_thread_messages(client, messages, interlocutor)
+            _print_thread_messages(client, messages, interlocutor)
         else:
-            __print_thread_messages(client, messages, None)
+            _print_thread_messages(client, messages, None)
 
 
-def __get_messages(client:Client, sent:bool):
+def _get_messages(client: Client, sent: bool):
     threads = client.fetchThreadList()
     sent_messages = []
     received_messages = []
@@ -49,7 +49,7 @@ def __get_messages(client:Client, sent:bool):
         return received_messages
 
 
-def __print_thread_messages(client:Client, messages, interlocutor):
+def _print_thread_messages(client: Client, messages, interlocutor):
     name = client.fetchUserInfo(client.uid)[client.uid].name
     user = client.searchForUsers(name)[0]
     print("\n--------------------------------------------------\n")

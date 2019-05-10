@@ -16,3 +16,5 @@ print("User's main url: {}".format(user.url))
 separate_messages.print_all_threads(client)
 #thread1 = client.fetchThreadList()[0]
 #separate_messages.print_single_thread(client, thread1.uid)
+
+client.logout()
