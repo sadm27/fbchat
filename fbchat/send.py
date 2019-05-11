@@ -5,7 +5,7 @@ from .graphql import *
 from fbchat import Client
 
 """
-SEND METHODS
+SEND FUNCTIONS
 """
 
 
@@ -1021,5 +1021,5 @@ def SEND_setTypingStatus(client, status, thread_id=None, thread_type=None):
 
 
 """
-END SEND METHODS
+END SEND FUNCTIONS
 """

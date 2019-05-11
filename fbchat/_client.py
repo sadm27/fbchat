@@ -704,17 +704,6 @@ class Client(object):
     SEND METHODS
     """
 
-    def _oldMessage(self, message):
-        return send._SEND_oldMessage(self, message)
-
-    def _getSendData(self, message=None, thread_id=None, thread_type=ThreadType.USER):
-        """Returns the data needed to send a request to `SendURL`"""
-        return send._SEND_getSendData(self, message, thread_id, thread_type)
-
-    def _doSendRequest(self, data, get_thread_id=False):
-        """Sends the data to `SendURL`, and returns the message ID or None on failure"""
-        send._SEND_doSendRequest(self, data, get_thread_id)
-
     def send(self, message, thread_id=None, thread_type=ThreadType.USER):
         """
         Sends a message to a thread
@@ -783,9 +772,6 @@ class Client(object):
         """
         send.SEND_unsend(self, mid)
 
-    def _sendLocation(self, location, current=True, thread_id=None, thread_type=None):
-       return send._SEND_sendLocation(self, location, current, thread_id, thread_type)
-
     def sendLocation(self, location, thread_id=None, thread_type=None):
         """
         Sends a given location to a thread as the user's current location
@@ -813,25 +799,6 @@ class Client(object):
         :raises: FBchatException if request failed
         """
         send.SEND_sendPinnedLocation(self, location, thread_id, thread_type)
-
-    def _upload(self, files, voice_clip=False):
-        """
-        Uploads files to Facebook
-
-        `files` should be a list of files that requests can upload, see:
-        http://docs.python-requests.org/en/master/api/#requests.request
-
-        Returns a list of tuples with a file's ID and mimetype
-        """
-        return send._SEND_upload(self, files, voice_clip)
-
-    def _sendFiles(self, files, message=None, thread_id=None, thread_type=ThreadType.USER):
-        """
-        Sends files from file IDs to a thread
-
-        `files` should be a list of tuples, with a file's ID and mimetype
-        """
-        return send._SEND_sendFiles(self, files, message, thread_id, thread_type)
 
     def sendRemoteFiles(self, file_urls, message=None, thread_id=None, thread_type=ThreadType.USER):
         """
@@ -891,7 +858,7 @@ class Client(object):
 
     def sendImage(self, image_id, message=None, thread_id=None, thread_type=ThreadType.USER, is_gif=False,):
         """
-        Deprecated. Use :func:`fbchat.Client._sendFiles` instead
+        Deprecated. Use :func:`fbchat.Send._sendFiles` instead
         """
         return send.SEND_sendImage(self, image_id, message, thread_id, thread_type, is_gif)
 
@@ -939,9 +906,6 @@ class Client(object):
         """
         send.SEND_removeUserFromGroup(self, user_id, thread_id)
 
-    def _adminStatus(self, admin_ids, admin, thread_id=None):
-        send._SEND_adminStatus(self, admin_ids, admin, thread_id)
-
     def addGroupAdmins(self, admin_ids, thread_id=None):
         """
         Sets specifed users as group admins.
@@ -972,9 +936,6 @@ class Client(object):
         """
         send.SEND_changeGroupApprovalMode(self, require_admin_approval, thread_id)
 
-    def _usersApproval(self, user_ids, approve, thread_id=None):
-        send._SEND_usersApproval(self, user_ids, approve, thread_id)
-
     def acceptUsersToGroup(self, user_ids, thread_id=None):
         """
         Accepts users to the group from the group's approval
@@ -994,16 +955,6 @@ class Client(object):
         :raises: FBchatException if request failed
         """
         send.SEND_denyUsersFromGroup(self, user_ids, thread_id)
-
-    def _changeGroupImage(self, image_id, thread_id=None):
-        """
-        Changes a thread image from an image id
-
-        :param image_id: ID of uploaded image
-        :param thread_id: User/Group ID to change image. See :ref:`intro_threads`
-        :raises: FBchatException if request failed
-        """
-        return send._SEND_changeGroupImage(self, image_id, thread_id)
 
     def changeGroupImageRemote(self, image_url, thread_id=None):
         """
