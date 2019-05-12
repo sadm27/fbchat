@@ -8,6 +8,7 @@ class Sender(object):
 
     def __init__(self):
         pass
+
     """
     Sender class contains all of the functions used to send messages
 
