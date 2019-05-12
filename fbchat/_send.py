@@ -75,7 +75,7 @@ class Sender(object):
         :raises: FBchatException if request failed
         """
         thread_id, thread_type = client._getThread(thread_id, thread_type)
-        data = _get_send_data(thread_id=thread_id, thread_type=thread_type)
+        data = _get_send_data(client, thread_id=thread_id, thread_type=thread_type)
         data["action_type"] = "ma-type:user-generated-message"
         data["lightweight_action_attachment[lwa_state]"] = (
             "INITIATED" if wave_first else "RECIPROCATED"
@@ -83,7 +83,7 @@ class Sender(object):
         data["lightweight_action_attachment[lwa_type]"] = "WAVE"
         if thread_type == ThreadType.USER:
             data["specific_to_list[0]"] = "fbid:{}".format(thread_id)
-        return _do_send_request(data)
+        return _do_send_request(client, data)
 
     def s_quick_reply(self, client, quick_reply, payload=None, thread_id=None, thread_type=None):
         """
@@ -329,7 +329,7 @@ class Sender(object):
         :return: ID of the new group
         :raises: FBchatException if request failed
         """
-        data = _get_send_data(message=_old_message(message))
+        data = _get_send_data(client, message=_old_message(message))
 
         if len(user_ids) < 2:
             raise FBchatUserError("Error when creating group: Not enough participants")
@@ -337,7 +337,7 @@ class Sender(object):
         for i, user_id in enumerate(user_ids + [client.uid]):
             data["specific_to_list[{}]".format(i)] = "fbid:{}".format(user_id)
 
-        message_id, thread_id = _do_send_request(data, get_thread_id=True)
+        message_id, thread_id = _do_send_request(client, data, get_thread_id=True)
         if not thread_id:
             raise FBchatException(
                 "Error when creating group: No thread_id could be found"
@@ -399,7 +399,7 @@ class Sender(object):
         :param thread_id: Group ID to remove people from. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        _admin_status(admin_ids, True, thread_id)
+        _admin_status(client, admin_ids, True, thread_id)
 
     def s_remove_group_admins(self, client, admin_ids, thread_id=None):
         """
@@ -436,7 +436,7 @@ class Sender(object):
         :param thread_id: Group ID to accept users to. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        _users_approval(user_ids, True, thread_id)
+        _users_approval(client, user_ids, True, thread_id)
 
     def s_deny_users_from_group(self, client, user_ids, thread_id=None):
         """
@@ -447,7 +447,7 @@ class Sender(object):
         :param thread_id: Group ID to deny users from. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        _users_approval(user_ids, False, thread_id)
+        _users_approval(client, user_ids, False, thread_id)
 
     def s_change_group_image_remote(self, client, image_url, thread_id=None):
         """
@@ -555,7 +555,7 @@ class Sender(object):
         only this one is required to make the change
 
         :param client: fbchat Client to be used
-        :param color: New thread emoji
+        :param emoji: New thread emoji
         :param thread_id: User/Group ID to change emoji of. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
@@ -785,15 +785,15 @@ def _old_message(message):
 
 def _get_send_data(client, message=None, thread_id=None, thread_type=ThreadType.USER):
     """Returns the data needed to send a request to `SendURL`"""
-    messageAndOTID = generateOfflineThreadingID()
+    message_and_otid = generateOfflineThreadingID()
     timestamp = now()
     data = {
         "client": client.client,
         "author": "fbid:" + str(client.uid),
         "timestamp": timestamp,
         "source": "source:chat:web",
-        "offline_threading_id": messageAndOTID,
-        "message_id": messageAndOTID,
+        "offline_threading_id": message_and_otid,
+        "message_id": message_and_otid,
         "threading_id": generateMessageID(client.client_id),
         "ephemeral_ttl_mode:": "0",
     }
