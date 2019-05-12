@@ -50,6 +50,34 @@ def getFromUserUrl(theUserUrl:str):
     print("Test")
 
 
+
+
+
+def getFromUserUrl(theGroupUrl:str):
+    subUrl = theGroupUrl.split("facebook.com/",1)[1]
+
+    print(subUrl)
+
+    groupCheck = subUrl.split('/')[0]
+    groupNameID = subUrl.split('/')[1]
+    print(groupCheck)
+
+    if "groups" == groupCheck:
+    #between / and / or everythong before the first /
+        print(groupCheck)
+
+        if groupNameID.isdigit():
+            print("numbers")
+            print(groupNameID)
+        else:
+            print ("is random chars")
+            print(groupNameID)
+    
+
+
+
+
+
 if __name__ == "__main__":
 
     url = 'https://www.facebook.com/profile.php?id=100027031812020&lst=100007160761754%3A100027031812020%3A1557634229&sk=friends&source_ref=pb_friends_tl'
