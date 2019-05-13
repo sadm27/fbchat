@@ -14,7 +14,7 @@ client = Client('sadm161@live.com', 'Bravo127$')
 def test_User_URL_search_Name():
     
     userName = client.getFromUserUrl("https://www.facebook.com/testo.accounto.3150/friends?lst=1257548836%3A100035148553478%3A1557696307&source_ref=pb_friends_tl")
-    assert userName == "Testo Accounto"
+    assert userName == "testo.accounto.3150"
 
 
 def test_User_URL_search_ID():
@@ -26,7 +26,7 @@ def test_User_URL_search_ID():
 def test_Group_URL_search_Name():
     
     groupName = client.getFromGroupUrl("https://www.facebook.com/groups/masstuning/about/")
-    assert groupName == "MassTuning"
+    assert groupName == "masstuning"
 
 
 def test_Group_URL_search_ID():

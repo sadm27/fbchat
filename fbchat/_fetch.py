@@ -894,7 +894,7 @@ class Fetcher(object):
             else:
                 print("</Nickname> RAN")
                 print(url1)
-                return url2
+                return url1
 
         print("Test")
 
