@@ -4,7 +4,7 @@ from fbchat.models import *
 from fbchat._message import Message
 
 
-testClient = Client('sabbatinifrancois@gmail.com', 'Gessica22082!')
+testClient = Client('sabbatinifrancois@gmail.com', 'MyOwnPassword1!')
 
 def test_fetchUnreadFromThreadMessages():
 
