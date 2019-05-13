@@ -754,7 +754,7 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent message
         :raises: FBchatException if request failed
         """
-        return Sender.s_wave(self, wave_first, thread_id, thread_type)
+        return Sender.s_wave(self.Sender, self, wave_first, thread_id, thread_type)
 
     def quickReply(self, quick_reply, payload=None, thread_id=None, thread_type=None):
         """
@@ -769,7 +769,7 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent message
         :raises: FBchatException if request failed
         """
-        return Sender.s_quick_reply(self, quick_reply, payload, thread_id, thread_type)
+        return Sender.s_quick_reply(self.Sender, self, quick_reply, payload, thread_id, thread_type)
 
     def unsend(self, mid):
         """
@@ -777,7 +777,7 @@ class Client(object):
 
         :param mid: :ref:`Message ID <intro_message_ids>` of the message to unsend
         """
-        Sender.s_unsend(self, mid)
+        Sender.s_unsend(self.Sender, self, mid)
 
     def sendLocation(self, location, thread_id=None, thread_type=None):
         """
@@ -791,7 +791,7 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent message
         :raises: FBchatException if request failed
         """
-        Sender.s_send_location(self, location, thread_id, thread_type)
+        Sender.s_send_location(self.Sender, self, location, thread_id, thread_type)
 
     def sendPinnedLocation(self, location, thread_id=None, thread_type=None):
         """
@@ -805,7 +805,7 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent message
         :raises: FBchatException if request failed
         """
-        Sender.s_send_pinned_location(self, location, thread_id, thread_type)
+        Sender.s_send_pinned_location(self.Sender, self, location, thread_id, thread_type)
 
     def sendRemoteFiles(self, file_urls, message=None, thread_id=None, thread_type=ThreadType.USER):
         """
@@ -819,7 +819,7 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent files
         :raises: FBchatException if request failed
         """
-        return Sender.s_send_remote_files(self, file_urls, message, thread_id, thread_type)
+        return Sender.s_send_remote_files(self.Sender, self, file_urls, message, thread_id, thread_type)
 
     def sendLocalFiles(self, file_paths, message=None, thread_id=None, thread_type=ThreadType.USER):
         """
@@ -833,7 +833,7 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent files
         :raises: FBchatException if request failed
         """
-        return Sender.s_send_local_files(self, file_paths, message, thread_id, thread_type)
+        return Sender.s_send_local_files(self.Sender, self, file_paths, message, thread_id, thread_type)
 
     def sendRemoteVoiceClips(self, clip_urls, message=None, thread_id=None, thread_type=ThreadType.USER):
         """
@@ -847,7 +847,7 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent files
         :raises: FBchatException if request failed
         """
-        return Sender.s_send_remote_voice_clips(self, clip_urls, message, thread_id, thread_type)
+        return Sender.s_send_remote_voice_clips(self.Sender, self, clip_urls, message, thread_id, thread_type)
 
     def sendLocalVoiceClips(self, clip_paths, message=None, thread_id=None, thread_type=ThreadType.USER):
         """
@@ -861,25 +861,25 @@ class Client(object):
         :return: :ref:`Message ID <intro_message_ids>` of the sent files
         :raises: FBchatException if request failed
         """
-        return Sender.s_send_local_voice_clips(self, clip_paths, message, thread_id, thread_type)
+        return Sender.s_send_local_voice_clips(self.Sender, self, clip_paths, message, thread_id, thread_type)
 
     def sendImage(self, image_id, message=None, thread_id=None, thread_type=ThreadType.USER, is_gif=False,):
         """
         Deprecated. Use :func:`fbchat.Send._sendFiles` instead
         """
-        return Sender.s_send_image(self, image_id, message, thread_id, thread_type, is_gif)
+        return Sender.s_send_image(self.Sender, self, image_id, message, thread_id, thread_type, is_gif)
 
     def sendRemoteImage(self, image_url, message=None, thread_id=None, thread_type=ThreadType.USER):
         """
         Deprecated. Use :func:`fbchat.Client.sendRemoteFiles` instead
         """
-        return Sender.s_send_remote_image(self, image_url, message, thread_id, thread_type)
+        return Sender.s_send_remote_image(self.Sender, self, image_url, message, thread_id, thread_type)
 
     def sendLocalImage(self, image_path, message=None, thread_id=None, thread_type=ThreadType.USER):
         """
         Deprecated. Use :func:`fbchat.Client.sendLocalFiles` instead
         """
-        return Sender.s_send_local_image(self, image_path, message, thread_id, thread_type)
+        return Sender.s_send_local_image(self.Sender, self, image_path, message, thread_id, thread_type)
 
     def createGroup(self, message, user_ids):
         """
@@ -890,7 +890,7 @@ class Client(object):
         :return: ID of the new group
         :raises: FBchatException if request failed
         """
-        return Sender.s_create_group(self, message, user_ids)
+        return Sender.s_create_group(self.Sender, self, message, user_ids)
 
     def addUsersToGroup(self, user_ids, thread_id=None):
         """
@@ -901,7 +901,7 @@ class Client(object):
         :type user_ids: list
         :raises: FBchatException if request failed
         """
-        return Sender.s_add_users_to_group(self, user_ids, thread_id)
+        return Sender.s_add_users_to_group(self.Sender, self, user_ids, thread_id)
 
     def removeUserFromGroup(self, user_id, thread_id=None):
         """
@@ -911,7 +911,7 @@ class Client(object):
         :param thread_id: Group ID to remove people from. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        Sender.s_remove_user_from_group(self, user_id, thread_id)
+        Sender.s_remove_user_from_group(self.Sender, self, user_id, thread_id)
 
     def addGroupAdmins(self, admin_ids, thread_id=None):
         """
@@ -921,7 +921,7 @@ class Client(object):
         :param thread_id: Group ID to remove people from. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        Sender.s_add_group_admins(self, admin_ids, thread_id)
+        Sender.s_add_group_admins(self.Sender, self, admin_ids, thread_id)
 
     def removeGroupAdmins(self, admin_ids, thread_id=None):
         """
@@ -931,7 +931,7 @@ class Client(object):
         :param thread_id: Group ID to remove people from. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        Sender.s_remove_group_admins(self, admin_ids, thread_id)
+        Sender.s_remove_group_admins(self.Sender, self, admin_ids, thread_id)
 
     def changeGroupApprovalMode(self, require_admin_approval, thread_id=None):
         """
@@ -941,7 +941,7 @@ class Client(object):
         :param thread_id: Group ID to remove people from. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        Sender.s_change_group_approval_mode(self, require_admin_approval, thread_id)
+        Sender.s_change_group_approval_mode(self.Sender, self, require_admin_approval, thread_id)
 
     def acceptUsersToGroup(self, user_ids, thread_id=None):
         """
@@ -951,7 +951,7 @@ class Client(object):
         :param thread_id: Group ID to accept users to. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        Sender.s_accept_users_to_group(self, user_ids, thread_id)
+        Sender.s_accept_users_to_group(self.Sender, self, user_ids, thread_id)
 
     def denyUsersFromGroup(self, user_ids, thread_id=None):
         """
@@ -961,7 +961,7 @@ class Client(object):
         :param thread_id: Group ID to deny users from. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        Sender.s_deny_users_from_group(self, user_ids, thread_id)
+        Sender.s_deny_users_from_group(self.Sender, self, user_ids, thread_id)
 
     def changeGroupImageRemote(self, image_url, thread_id=None):
         """
@@ -971,7 +971,7 @@ class Client(object):
         :param thread_id: User/Group ID to change image. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        return Sender.s_change_group_image_remote(self, image_url, thread_id)
+        return Sender.s_change_group_image_remote(self.Sender, self, image_url, thread_id)
 
     def changeGroupImageLocal(self, image_path, thread_id=None):
         """
@@ -981,7 +981,7 @@ class Client(object):
         :param thread_id: User/Group ID to change image. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        return Sender.s_change_group_image_local(self, image_path, thread_id)
+        return Sender.s_change_group_image_local(self.Sender, self, image_path, thread_id)
 
     def changeThreadTitle(self, title, thread_id=None, thread_type=ThreadType.USER):
         """
@@ -994,7 +994,7 @@ class Client(object):
         :type thread_type: models.ThreadType
         :raises: FBchatException if request failed
         """
-        Sender.s_change_thread_title(self, title, thread_id, thread_type)
+        Sender.s_change_thread_title(self.Sender, self, title, thread_id, thread_type)
 
     def changeNickname(self, nickname, user_id, thread_id=None, thread_type=ThreadType.USER):
         """
@@ -1007,7 +1007,7 @@ class Client(object):
         :type thread_type: models.ThreadType
         :raises: FBchatException if request failed
         """
-        Sender.s_change_nickname(self, nickname, user_id, thread_id, thread_type)
+        Sender.s_change_nickname(self.Sender, self, nickname, user_id, thread_id, thread_type)
 
     def changeThreadColor(self, color, thread_id=None):
         """
@@ -1018,7 +1018,7 @@ class Client(object):
         :type color: models.ThreadColor
         :raises: FBchatException if request failed
         """
-        Sender.s_change_thread_color(self, color, thread_id)
+        Sender.s_change_thread_color(self.Sender, self, color, thread_id)
 
     def changeThreadEmoji(self, emoji, thread_id=None):
         """
@@ -1030,7 +1030,7 @@ class Client(object):
         :param thread_id: User/Group ID to change emoji of. See :ref:`intro_threads`
         :raises: FBchatException if request failed
         """
-        Sender.s_change_thread_emoji(self, emoji, thread_id)
+        Sender.s_change_thread_emoji(self.Sender, self, emoji, thread_id)
 
     def reactToMessage(self, message_id, reaction):
         """
@@ -1041,7 +1041,7 @@ class Client(object):
         :type reaction: models.MessageReaction or None
         :raises: FBchatException if request failed
         """
-        Sender.s_react_to_message(self, message_id, reaction)
+        Sender.s_react_to_message(self.Sender, self, message_id, reaction)
 
     def createPlan(self, plan, thread_id=None):
         """
@@ -1052,7 +1052,7 @@ class Client(object):
         :type plan: models.Plan
         :raises: FBchatException if request failed
         """
-        Sender.s_create_plan(self, plan, thread_id)
+        Sender.s_create_plan(self.Sender, self, plan, thread_id)
 
     def editPlan(self, plan, new_plan):
         """
@@ -1063,7 +1063,7 @@ class Client(object):
         :type plan: models.Plan
         :raises: FBchatException if request failed
         """
-        Sender.s_edit_plan(self, plan, new_plan)
+        Sender.s_edit_plan(self.Sender, self, plan, new_plan)
 
     def deletePlan(self, plan):
         """
@@ -1072,7 +1072,7 @@ class Client(object):
         :param plan: Plan to delete
         :raises: FBchatException if request failed
         """
-        Sender.s_delete_plan(self, plan)
+        Sender.s_delete_plan(self.Sender, self, plan)
 
     def changePlanParticipation(self, plan, take_part=True):
         """
@@ -1082,13 +1082,13 @@ class Client(object):
         :param take_part: Whether to take part in the plan
         :raises: FBchatException if request failed
         """
-        Sender.s_change_plan_participation(self, plan, take_part)
+        Sender.s_change_plan_participation(self.Sender, self, plan, take_part)
 
     def eventReminder(self, thread_id, time, title, location="", location_id=""):
         """
         Deprecated. Use :func:`fbchat.Client.createPlan` instead
         """
-        Sender.s_event_reminder(self, thread_id, time, title, location, location_id)
+        Sender.s_event_reminder(self.Sender, self, thread_id, time, title, location, location_id)
 
     def createPoll(self, poll, thread_id=None):
         """
@@ -1099,7 +1099,7 @@ class Client(object):
         :type poll: models.Poll
         :raises: FBchatException if request failed
         """
-        Sender.s_create_poll(self, poll, thread_id)
+        Sender.s_create_poll(self.Sender, self, poll, thread_id)
 
     def updatePollVote(self, poll_id, option_ids=[], new_options=[]):
         """
@@ -1113,7 +1113,7 @@ class Client(object):
         :type thread_type: models.ThreadType
         :raises: FBchatException if request failed
         """
-        Sender.s_update_poll_vote(self, poll_id, option_ids, new_options)
+        Sender.s_update_poll_vote(self.Sender, self, poll_id, option_ids, new_options)
 
     def setTypingStatus(self, status, thread_id=None, thread_type=None):
         """
@@ -1126,7 +1126,7 @@ class Client(object):
         :type thread_type: models.ThreadType
         :raises: FBchatException if request failed
         """
-        Sender.s_set_typing_status(self, status, thread_id, thread_type)
+        Sender.s_set_typing_status(self.Sender, self, status, thread_id, thread_type)
 
     """
     END SEND METHODS

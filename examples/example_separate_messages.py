@@ -1,6 +1,5 @@
 from fbchat import Client
 from fbchat import separate_messages
-from fbchat.models import *
 
 
 def print_author_ids(message_list):
@@ -17,5 +16,8 @@ print("------------------------")
 print("Sent Messages:")
 print_author_ids(separate_messages.get_sent_messages(client))
 print("------------------------")
+
+print("\nThread #1275720524:")
+separate_messages.print_single_thread(client, '1275720524')
 
 client.logout()
