@@ -53,7 +53,7 @@ def getFromUserUrl(theUserUrl:str):
 
 
 
-def getFromUserUrl(theGroupUrl:str):
+def getFromGroupUrl(theGroupUrl:str):
     subUrl = theGroupUrl.split("facebook.com/",1)[1]
 
     print(subUrl)
