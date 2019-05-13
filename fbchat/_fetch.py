@@ -854,7 +854,7 @@ class Fetcher(object):
 
 
         #example for fetching a User or group from a given URL
-    def FET_getFromUserUrl(self, Client, theUserUrl:str):
+    def FET_getFromUserUrl(self, Client, theUserUrl):
 
         #need to determine how to differentiate between sending back an id vs a name
 
@@ -899,7 +899,7 @@ class Fetcher(object):
         print("Test")
 
 
-    def FET_getFromGroupUrl(self, Client, theGroupUrl:str):
+    def FET_getFromGroupUrl(self, Client, theGroupUrl):
         subUrl = theGroupUrl.split("facebook.com/",1)[1]
 
         #print(subUrl)
