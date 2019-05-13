@@ -696,6 +696,12 @@ class Client(object):
     def getUserActiveStatus(self, user_id):
         return self.DaFetch.FET_getUserActiveStatus(self, user_id)
 
+    def getFromUserUrl(self, theUserUrl:str):
+        return self.DaFetch.FET_getFromUserUrl(self, theUserUrl:str)
+
+    def getFromGroupUrl(self, theGroupUrl:str):
+        return self.DaFetch.FET_getFromGroupUrl(self, theGroupUrl:str):
+
     """
     END FETCH METHODS Callers
     """

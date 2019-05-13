@@ -852,6 +852,79 @@ class Fetcher(object):
         """
         return Client._buddylist.get(str(user_id))
 
+
+        #example for fetching a User or group from a given URL
+    def FET_getFromUserUrl(self, Client, theUserUrl:str):
+
+        #need to determine how to differentiate between sending back an id vs a name
+
+        #for "profile.php?id="
+        if(theUserUrl.find("id=") != -1):
+            print("<ID=> RAN")
+
+            url1 = theUserUrl.split("id=")[1]
+            url2 = ""
+            for digit in url1:
+                if (not digit.isdigit()):
+                    url2 = url1.split(digit)[0]
+                    break
+
+            print(url2)
+            return url2
+
+        #Case for facebook.com/<nickname>
+        #Or for   facebook.com/<nickname>/
+        else:
+
+            url1 = theUserUrl.split("facebook.com/")[1]
+            url2 = ""
+
+            if(url1.find("/") != -1):
+                print("</Nickname/> RAN")
+                url2 = url1.split("/")[0]
+                print(url2)
+                return url2
+
+            elif(url1.find("?") != -1):
+                print("</Nickname?> RAN")
+                url2 = url1.split("?")[0]
+                print(url2)
+                return url2
+
+            else:
+                print("</Nickname> RAN")
+                print(url1)
+                return url2
+
+        print("Test")
+
+
+    def FET_getFromGroupUrl(self, Client, theGroupUrl:str):
+        subUrl = theGroupUrl.split("facebook.com/",1)[1]
+
+        #print(subUrl)
+
+        groupCheck = subUrl.split('/')[0]
+        groupNameID = subUrl.split('/')[1]
+        #print(groupCheck)
+
+        if "groups" == groupCheck:
+        #between / and / or everythong before the first /
+            #print(groupCheck)
+
+            #need to determine how to differentiate between sending back an id vs a name
+            if groupNameID.isdigit():
+                #print("numbers")
+                #print(groupNameID)
+                return groupNameID
+            else:
+                #print("is random chars")
+                #print(groupNameID)
+                return groupNameID
+        else:
+            print("URL does not contain group name or id")
+
+
     """
     END FETCH METHODS
     """
