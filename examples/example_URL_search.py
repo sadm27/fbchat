@@ -19,16 +19,16 @@ def test_User_URL_search_Name(client :Client):
     print(u.name)   #"Testo Accounto"
 
 
-    def test_User_URL_search_ID(client :Client):
+def test_User_URL_search_ID(client :Client):
     
     userID = client.getFromUserUrl("https://www.facebook.com/profile.php?id=100007160761754&lst=1257548836%3A100007160761754%3A1557627804&sk=about")
     user = client.fetchUserInfo(userID)
 
-    print(u.uid)    #"100007160761754"
-    print(u.name)   #"Sabbatini Francois"
+    print(user.uid)    #"100007160761754"
+    print(user.name)   #"Sabbatini Francois"
 
 
-    def test_Group_URL_search_Name(client :Client):
+def test_Group_URL_search_Name(client :Client):
     
     groupName = client.getFromGroupUrl("https://www.facebook.com/groups/masstuning/about/")
     groups = client.searchForGroups(groupName)
@@ -38,13 +38,13 @@ def test_User_URL_search_Name(client :Client):
     print(g.name)   #"MassTuning"
 
 
-    def test_Group_URL_search_ID(client :Client):
+def test_Group_URL_search_ID(client :Client):
     
     GroupID = client.getFromGroupUrl("https://www.facebook.com/groups/12199253345/about/")
     group = client.fetchGroupInfo(GroupID)
 
-    print(g.uid)    #"12199253345"
-    print(g.name)   #"Tuning Alliance Crew"
+    print(group.uid)    #"12199253345"
+    print(group.name)   #"Tuning Alliance Crew"
 
 
 

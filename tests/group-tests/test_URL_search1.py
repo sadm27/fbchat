@@ -32,4 +32,4 @@ def test_Group_URL_search_Name():
 def test_Group_URL_search_ID():
     
     GroupID = client.getFromGroupUrl("https://www.facebook.com/groups/12199253345/about/")
-    assert group.uid == "12199253345"
+    assert GroupID == "12199253345"
