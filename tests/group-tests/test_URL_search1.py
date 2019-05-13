@@ -17,19 +17,19 @@ def test_User_URL_search_Name():
     assert userName == "Testo Accounto"
 
 
-    def test_User_URL_search_ID():
+def test_User_URL_search_ID():
     
     userID = client.getFromUserUrl("https://www.facebook.com/profile.php?id=100007160761754&lst=1257548836%3A100007160761754%3A1557627804&sk=about")
     assert userID == "100007160761754"
 
 
-    def test_Group_URL_search_Name():
+def test_Group_URL_search_Name():
     
     groupName = client.getFromGroupUrl("https://www.facebook.com/groups/masstuning/about/")
     assert groupName == "MassTuning"
 
 
-    def test_Group_URL_search_ID():
+def test_Group_URL_search_ID():
     
     GroupID = client.getFromGroupUrl("https://www.facebook.com/groups/12199253345/about/")
     assert group.uid == "12199253345"
