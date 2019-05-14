@@ -33,6 +33,7 @@ def test_User_URL_search_ID(client):
 def test_Group_URL_search_Name(client):
     
     groupName = client.getFromGroupUrl("https://www.facebook.com/groups/masstuning/about/")
+    print(groupName)
     groups = client.searchForGroups(groupName)
     g = groups[0]
 
