@@ -5,7 +5,7 @@ from fbchat import Credentials
 def getVideoURLs(client :Client):
 
     #Gets a list of users with the given name and uses the first user in the list
-    users = client.searchForUsers('Users Name')
+    users = client.searchForUsers('Testo Accounto')
     user = users[0]
     
     #Grabs the latest 10 messages in the thread with te given user and reverse the thread
@@ -22,7 +22,7 @@ def getVideoURLs(client :Client):
 def getImageURLs(client :Client):
 
     #Gets a list of users with the given name and uses the first user in the list
-    users = client.searchForUsers('Users Name')
+    users = client.searchForUsers('Testo Accounto')
     user = users[0]
     
     #Grabs the latest 10 messages in the thread with te given user and reverse the thread
@@ -39,7 +39,7 @@ def getImageURLs(client :Client):
 def getJSONs(client :Client):
 
     #Gets a list of users with the given name and uses the first user in the list
-    users = client.searchForUsers('Users Name')
+    users = client.searchForUsers('Testo Accounto')
     user = users[0]
     
     #Grabs the latest 10 messages in the thread with te given user and reverse the thread
@@ -55,7 +55,11 @@ def getJSONs(client :Client):
 
 
 def main():
+<<<<<<< HEAD:examples/example_seeAttachURL.py
     client = Client(Credentials.username, Credentials.password)
+=======
+    client = Client("sadm161@live.com", "Bravo127$")
+>>>>>>> dfad2ced38d0c561438cc14aaa098af6f9d985d0:examples/seeAttachURL.py
     getVideoURLs(client)
     getImageURLs(client)
     getJSONs(client)
