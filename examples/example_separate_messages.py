@@ -1,13 +1,13 @@
 from fbchat import Client
 from fbchat import separate_messages
-
+from fbchat import Credentials
 
 def print_author_ids(message_list):
     for message in message_list:
         print("Author:", message.author)
 
 
-client = Client('alexpacheco@charter.net', 'Q5pKJ9buWQ6v')
+client = Client(Credentials.username, Credentials.password)
 
 print("------------------------")
 print("Received Messages:")

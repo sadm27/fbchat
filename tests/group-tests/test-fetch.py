@@ -7,8 +7,10 @@ import pytest
 import fbchat
 from fbchat import Client
 from fbchat.models import *
+from fbchat import Credentials
+from fbchat import Credentials
 
-client = Client('sadm161@live.com', 'Bravo127$')
+client = Client(Credentials.username, Credentials.password)
 
 """
 Test file for testing fetchImageUrl and fetchVideoUrl

@@ -1,5 +1,6 @@
 from fbchat import Client
 from fbchat.models import *
+from fbchat import Credentials
 
 def getVideoURLs(client :Client):
 
@@ -54,7 +55,7 @@ def getJSONs(client :Client):
 
 
 def main():
-    client = Client("<email>", "<password>")
+    client = Client(Credentials.username, Credentials.password)
     getVideoURLs(client)
     getImageURLs(client)
     getJSONs(client)

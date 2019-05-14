@@ -1,7 +1,8 @@
 from fbchat import Client
 from fbchat import separate_messages
+from fbchat import Credentials
 
-test_client = Client('alexpacheco@charter.net', 'Q5pKJ9buWQ6v')
+test_client = Client(Credentials.username, Credentials.password)
 
 
 def test_separate_messages():

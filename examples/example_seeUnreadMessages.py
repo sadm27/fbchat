@@ -1,5 +1,6 @@
 from fbchat import Client
 from fbchat.models import *
+from fbchat import Credentials
 
 #example for the fetching all the unread messages from a Group or User conversation
 def getInfo(client :Client):
@@ -15,5 +16,5 @@ def getInfo(client :Client):
 
 if __name__ == "__main__":
 
-    client = Client("<email>", "<password>")
+    client = Client(Credentials.username, Credentials.password)
     getInfo(client)

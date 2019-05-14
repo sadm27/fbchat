@@ -7,6 +7,7 @@ import pytest
 import fbchat
 from fbchat import Client
 from fbchat.models import *
+from fbchat import Credentials
 
 
 def test_User_URL_search_Name(client):
@@ -51,7 +52,7 @@ def test_Group_URL_search_ID(client):
 
 
 def main():
-    client = Client("sadm161@live.com", "Bravo127$")
+    client = Client(Credentials.username, Credentials.password)
     #test_User_URL_search_Name(client)
     #test_User_URL_search_ID(client)
     test_Group_URL_search_Name(client)

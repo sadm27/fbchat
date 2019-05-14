@@ -2,9 +2,9 @@ import fbchat
 from fbchat import Client
 from fbchat.models import *
 from fbchat._message import Message
+from fbchat import Credentials
 
-
-testClient = Client('sabbatinifrancois@gmail.com', 'MyOwnPassword1!')
+testClient = Client(Credentials.username, Credentials.password)
 
 def test_fetchUnreadFromThreadMessages():
 
