@@ -55,11 +55,8 @@ def getJSONs(client :Client):
 
 
 def main():
-<<<<<<< HEAD:examples/example_seeAttachURL.py
     client = Client(Credentials.username, Credentials.password)
-=======
-    client = Client("sadm161@live.com", "Bravo127$")
->>>>>>> dfad2ced38d0c561438cc14aaa098af6f9d985d0:examples/seeAttachURL.py
+    # client = Client("sadm161@live.com", "Bravo127$")
     getVideoURLs(client)
     getImageURLs(client)
     getJSONs(client)
